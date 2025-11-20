@@ -1,6 +1,7 @@
 Download the zip and extract it to a folder.
 
 Do: python -m venv venv and activate the venv
+activate using .\venv\Scripts\activate
 
 Do: pip install -r requirements.txt
 
