@@ -25,8 +25,8 @@ logging.basicConfig(level=logging.INFO)
 # ---------------------------------------------
 # Global runtime configuration
 # ---------------------------------------------
-MODEL_NAME = "gemma-3-27b-it"     # Gemma 27B
-global_api_key = None             # Will be set at startup by user input
+MODEL_NAME = "gemma-3-27b-it"        # Gemma 27B
+global_api_key = None                # Will be set at startup by user input
 
 # Register dashboard blueprint
 app.register_blueprint(dashboard_bp)
@@ -192,6 +192,14 @@ def gather_followup():
 def load_api_key():
     """Load the Gemini API key from key.txt, or ask the user if missing."""
     key_file = "key.txt"
+
+    # --- START OF NEW CODE ---
+    # 1. Check environment variable first, which is set in Colab
+    env_key = os.getenv("GEMINI_API_KEY")
+    if env_key:
+        logging.info("✅ Gemini API key loaded from environment variable")
+        return env_key
+    # --- END OF NEW CODE ---
 
     if os.path.exists(key_file):
         with open(key_file, "r") as f:
